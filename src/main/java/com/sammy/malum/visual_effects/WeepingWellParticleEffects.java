@@ -74,8 +74,8 @@ public class WeepingWellParticleEffects {
                 };
                 for (int i = 0; i < 2; i++) {
                     var lightSpecs = weepingWellSpecs(level, offsetPosition);
-                    lightSpecs.getBuilder().addActor(behavior);
-                    lightSpecs.getBloomBuilder().addActor(behavior);
+                    lightSpecs.getBuilder().addTickActor(behavior);
+                    lightSpecs.getBloomBuilder().addTickActor(behavior);
                     lightSpecs.spawnParticles();
                 }
             }
@@ -84,7 +84,7 @@ public class WeepingWellParticleEffects {
 
     public static void radiantWeepingWellParticles(VoidConduitBlockEntity voidConduit) {
         Level level = voidConduit.getLevel();
-        Random rand = level.random;
+        var rand = level.random;
         Color color = RADIANT_COLORS.get(((int) level.getGameTime() % 27) / 9);
         final BlockPos blockPos = voidConduit.getBlockPos();
         final ColorParticleData colorData = ColorParticleData.create(color.brighter(), color).setCoefficient(0.5f).build();
@@ -102,7 +102,7 @@ public class WeepingWellParticleEffects {
                     .setDirection(motion.normalize())
                     .enableNoClip()
                     .setSpritePicker(SimpleParticleOptions.ParticleSpritePicker.RANDOM_SPRITE)
-                    .addActor(slowDown)
+                    .addTickActor(slowDown)
                     .spawn(level, blockPos.getX() + 0.5f, blockPos.getY() + 0.75f, blockPos.getZ() + 0.5f)
                     .setTransparencyData(GenericParticleData.create(0.1f, 0.6f, 0f).setEasing(Easing.CUBIC_OUT, Easing.EXPO_OUT).build())
                     .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
@@ -120,8 +120,8 @@ public class WeepingWellParticleEffects {
             int rotation = (int) ((level.getGameTime() / 2f) % 16);
             Vec3 offsetPosition = DataHelper.rotatingRadialOffset(new Vec3(blockPos.getX() + 0.5f, blockPos.getY() + 0.75f, blockPos.getZ() + 0.5f), 1.1f, rotation, 16, voidConduit.getLevel().getGameTime(), 640);
             var lightSpecs = weepingWellSpecs(level, offsetPosition, colorData, LodestoneWorldParticleRenderType.ADDITIVE);
-            lightSpecs.getBuilder().addActor(behavior);
-            lightSpecs.getBloomBuilder().addActor(behavior);
+            lightSpecs.getBuilder().addTickActor(behavior);
+            lightSpecs.getBloomBuilder().addTickActor(behavior);
             lightSpecs.spawnParticles();
         }
     }

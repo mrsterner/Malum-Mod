@@ -32,8 +32,8 @@ public class SparkParticleEffects {
                 .setColorData(colorData)
                 .setLifetime(lifetime)
                 .enableNoClip()
-                .addActor(slowDown);
-        final WorldParticleBuilder bloomParticleBuilder = SpiritLightSpecs.spiritBloom(level, spiritType, spinData, lifetime).addActor(slowDown);
+                .addTickActor(slowDown);
+        final WorldParticleBuilder bloomParticleBuilder = SpiritLightSpecs.spiritBloom(level, spiritType, spinData, lifetime).addTickActor(slowDown);
 
         return new ParticleEffectSpawner<>(level, pos, sparkParticleBuilder, bloomParticleBuilder);
     }
